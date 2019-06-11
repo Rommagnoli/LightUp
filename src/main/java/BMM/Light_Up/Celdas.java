@@ -65,6 +65,7 @@ public class Celdas {
      */
     public void setLampara() {
         this.esLampara = true;
+        this.esLuz = true;
     }
 
     /**
