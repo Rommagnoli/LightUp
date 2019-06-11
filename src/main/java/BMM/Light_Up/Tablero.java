@@ -25,6 +25,11 @@ public class Tablero {
 	 * Representa la cantidad de celdas con luz en la matriz. 
 	 */
 	private int cantCeldasLuz;
+	
+	/**
+	 * Representa la cantidad de celdas negras en la matriz
+	 */
+	private int cantCeldasNegras;
 
 	/**
 	 * Crea un tablero predeterminado de 7 x 7 
@@ -75,6 +80,22 @@ public class Tablero {
 	}
 	
 	/**
+	 * Funcion que retorna la cantidad de celdas negras
+	 * @return la cantidad de celdas negras del tablero
+	 */
+	public int getCantCeldasNegras() {
+	    return this.cantCeldasNegras;
+	}
+	
+	/**
+	 * Funcion que retorna la cantidad de celdas sin luz del tablero.
+	 * @return cantidad de celdas sin luz
+	 */
+	public int getCantidadSinLuz() {
+	    return ((FIL*COL) - this.cantCeldasNegras - this.cantCeldasLuz);
+	}
+	
+	/**
 	 * Funcion que setea una celda negra en la matriz si la posicion es valida.
 	 * @param posFila es el indice que representa una fila en la matriz.
 	 * @param posCol es el indice que representa una columna en la matriz.
@@ -88,6 +109,7 @@ public class Tablero {
 		if (this.elementos[posFila][posCol].esNegra())
 			throw new IllegalArgumentException("La celda en la posicion " + posFila + posCol + "ya es negra");
 		this.elementos[posFila][posCol].setCeldaNegra(); 
+		this.cantCeldasNegras++;
 	}
 	
 	/**
@@ -104,7 +126,8 @@ public class Tablero {
 		}
 		if (this.elementos[posFila][posCol].esNegra())
 			throw new IllegalArgumentException("La celda en la posicion " + posFila + posCol + "ya es negra");
-		this.elementos[posFila][posCol].setCeldaNegra(valor); 
+		this.elementos[posFila][posCol].setCeldaNegra(valor);
+		this.cantCeldasNegras++;
 	}
 	
 	/**
