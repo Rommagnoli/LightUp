@@ -93,6 +93,14 @@ public class Celdas {
     public boolean esNegra() {
         return this.esNegra;
     }
+    
+    /**
+     * Funcion que dice si una celda es negra y con valor asignado.
+     * @return true si es negra con numero, false si no lo es.
+     */
+    public boolean esNegraValor() {
+    	return (this.esNegra && this.valorCelda != null);
+    }
 
     /**
      * Informa si una celda esta iluminada
