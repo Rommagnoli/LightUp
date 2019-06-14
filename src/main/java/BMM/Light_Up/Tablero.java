@@ -1,5 +1,10 @@
 package BMM.Light_Up;
 
+import org.jgap.Chromosome;
+import org.jgap.Gene;
+import org.jgap.InvalidConfigurationException;
+import org.jgap.impl.SetGene;
+
 /**
  * Clase que repersenta el tablero de juego.
  *
@@ -297,4 +302,28 @@ public class Tablero {
 	}
 	return cantLamparas;
   }
+  
+  /**
+	 * Set the tablero to the chromosome
+	 * @param tablero
+ * @throws InvalidConfigurationException 
+	 */
+	public LightUpChromosome  setChromosome() throws InvalidConfigurationException {
+		int i = 0;
+		LightUpChromosome  chromosome = (LightUpChromosome) new Chromosome();
+		for (Celdas c : this.getTablero()) {
+			if (c.esLampara()) { 
+				Gene g = new SetGene();
+				g.setAllele(1);
+				chromosome.setGene(i, g);
+				i++;
+			} else {
+				Gene g = new SetGene();
+				g.setAllele(0);
+				chromosome.setGene(i, g);
+				i++;
+			}	
+		}
+		return chromosome;
+	}
 }
