@@ -65,7 +65,7 @@ public class Celdas {
      */
     public void setLampara() {
         this.esLampara = true;
-        this.esLuz = true;
+        //this.esLuz = true;
     }
 
     /**
@@ -118,5 +118,20 @@ public class Celdas {
      */
     public boolean esLampara() {
         return this.esLampara;
+    }
+    
+    /**
+     * Muestra por pantalla una celda
+     */
+    public String toString() {
+      String celda = " ";
+      if (this.esLampara) celda = "@";
+      if (this.esLuz) celda = "L";
+      if (this.esNegra) celda = "N";
+      if (this.esNegraValor()) {
+        int valor = this.getValorCelda();
+        celda = String.valueOf(valor);
+      }
+      return celda;
     }
 }

@@ -41,19 +41,16 @@ public class Tablero {
       Celdas celda = new Celdas();
       this.elementos [tabIndex] = celda;
     }
+    elementos [22].setCeldaNegra();
+	elementos [46].setCeldaNegra();		
+	elementos [2].setCeldaNegra(1);
+	elementos [10].setCeldaNegra(1);
+	elementos [28].setCeldaNegra(3);
+	elementos [38].setCeldaNegra(0);
+	elementos [26].setCeldaNegra(2);
+	elementos [20].setCeldaNegra(3);
+  
   }
-
-  /*
-		elementos [3][1].setCeldaNegra();
-		elementos [6][4].setCeldaNegra();		
-		elementos [0][2].setCeldaNegra(1);
-		elementos [1][3].setCeldaNegra(1);
-		elementos [4][0].setCeldaNegra(3);
-		elementos [5][3].setCeldaNegra(0);
-		elementos [3][5].setCeldaNegra(2);
-		elementos [2][6].setCeldaNegra(3);
-  */
-
   /**
    * Funcion que retorna la matriz de celdas.
    * @return la matriz que simboliza el tablero.
@@ -70,8 +67,8 @@ public class Tablero {
    */
   private static int transformarColumna(int tabIndex) {
     int col = tabIndex;
-    while (col > 8) {
-      col = col - 8;
+    while (col > 7) {
+      col = col - 7;
     }
     return col;
   }
@@ -113,11 +110,11 @@ public class Tablero {
    * @param tabIndex es el indice de movimiento para el arreglo.
    */
   public void nuevaCeldaNegra(int tabIndex) {
-    if  (this.tableroValido()) {
+    if (!this.tableroValido()) {
       throw new IllegalArgumentException("El tablero es nulo");
     }
     
-    if (tabIndex < 0 || tabIndex > 0) {
+    if (tabIndex < 0 || tabIndex > 48) {
       throw new IllegalArgumentException("Posiciones invalidas");
     }  
     
@@ -164,28 +161,28 @@ public class Tablero {
     if ((tabIndex - 7 >= 0) && this.elementos[tabIndex - 7].esNegraValor()) {      // Elemento de arriba (representacion en matriz)
       valCelda = this.elementos[tabIndex - 7].getValorCelda();
       cantLamparasCelda = this.cantLamparasAdy(tabIndex - 7);
-      if (valCelda >= cantLamparasCelda) {
+      if (valCelda <= cantLamparasCelda) {
         return false;
       }
 	}
     if ((tabIndex + 7 < MAX) && this.elementos[tabIndex + 7].esNegraValor()) {     // Elemento de abajo (representacion en matriz)
       valCelda = this.elementos[tabIndex + 7].getValorCelda();
       cantLamparasCelda = this.cantLamparasAdy(tabIndex + 7);
-      if (valCelda >= cantLamparasCelda) {
+      if (valCelda <= cantLamparasCelda) {
         return false;
       }
 	}
 	if ((tabIndex - 1 >= 0) && this.elementos[tabIndex - 1].esNegraValor()) {      // Elemento de la Izquierda (representacion en matriz)
 	  valCelda = this.elementos[tabIndex - 1].getValorCelda();
 	  cantLamparasCelda = this.cantLamparasAdy(tabIndex - 1);
-	  if (valCelda >= cantLamparasCelda) {
+	  if (valCelda <= cantLamparasCelda) {
         return false;
       }
 	}
 	if ((tabIndex + 1 < MAX) && this.elementos[tabIndex + 1].esNegraValor()) {     // Elemento de la derecha (representacion en matriz)
 	  valCelda = this.elementos[tabIndex + 1].getValorCelda();
 	  cantLamparasCelda = this.cantLamparasAdy(tabIndex + 1);
-	  if (valCelda >= cantLamparasCelda) {
+	  if (valCelda <= cantLamparasCelda) {
         return false;
       }
 	}
@@ -198,7 +195,7 @@ public class Tablero {
    * @return true si es valida la posicion, false si es invalida.
    */
   public boolean posValidaNuevaLamp(int tabIndex) {
-    if (this.tableroValido()) {
+    if (!(this.tableroValido())) {
       throw new IllegalArgumentException("El tablero es nulo");
     }
 	if (tabIndex < 0 || tabIndex > MAX) {
@@ -242,7 +239,7 @@ public class Tablero {
 	  }
 	  
 	  i = tabIndex + 7;
-	  while ((i < 7) && (!(this.elementos[i].esNegra()))){         //Illuminar el tablero hacia abajo
+	  while ((i < 49) && (!(this.elementos[i].esNegra()))){         //Illuminar el tablero hacia abajo
 	    if (this.elementos[i].esLuz()) {
           i = i + 7;
         } else {
@@ -267,7 +264,7 @@ public class Tablero {
 	  
 	  col = (Tablero.transformarColumna(tabIndex)) + 1;
 	  i = tabIndex + 1;
-	  while ((col < 8) && (!(this.elementos[i].esNegra()))) {      //Illuminar el tablero hacia la derecha
+	  while ((col < 7) && (!(this.elementos[i].esNegra()))) {      //Illuminar el tablero hacia la derecha
 	    if (this.elementos[i].esLuz()){
           i++;
         } else {
@@ -304,26 +301,40 @@ public class Tablero {
   }
   
   /**
-	 * Set the tablero to the chromosome
-	 * @param tablero
- * @throws InvalidConfigurationException 
-	 */
-	public LightUpChromosome  setChromosome() throws InvalidConfigurationException {
-		int i = 0;
-		LightUpChromosome  chromosome = (LightUpChromosome) new Chromosome();
-		for (Celdas c : this.getTablero()) {
-			if (c.esLampara()) { 
-				Gene g = new SetGene();
-				g.setAllele(1);
-				chromosome.setGene(i, g);
-				i++;
-			} else {
-				Gene g = new SetGene();
-				g.setAllele(0);
-				chromosome.setGene(i, g);
-				i++;
-			}	
-		}
-		return chromosome;
-	}
+   * Set the tablero to the chromosome
+   * @param tablero
+   * @throws InvalidConfigurationException 
+   */
+  public LightUpChromosome  setChromosome() throws InvalidConfigurationException {
+    int i = 0;
+    LightUpChromosome  chromosome = (LightUpChromosome) new Chromosome();
+    for (Celdas c : this.getTablero()) {
+      if (c.esLampara()) { 
+        Gene g = new SetGene();
+        g.setAllele(1);
+        chromosome.setGene(i, g);
+        i++;
+      } else {
+        Gene g = new SetGene();
+        g.setAllele(0);
+        chromosome.setGene(i, g);
+        i++;
+      }	
+    }
+    return chromosome;
+  }
+  
+  /**
+   * 
+   */
+  public String toString() {
+    String tab = "";
+    for (int index = 0; index < MAX; index++) {
+      if ((index % 7) == 0) {
+        tab = tab + "\n" + " | ";
+      }
+      tab = tab + this.elementos[index].toString() + "| ";
+    }
+    return tab;
+  }
 }
