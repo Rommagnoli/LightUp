@@ -1,8 +1,12 @@
 package BMM.Light_Up;
 
+import org.jgap.BaseGene;
 import org.jgap.Chromosome;
+import org.jgap.Configuration;
 import org.jgap.Gene;
 import org.jgap.InvalidConfigurationException;
+import org.jgap.impl.DefaultConfiguration;
+import org.jgap.impl.IntegerGene;
 import org.jgap.impl.SetGene;
 
 /**
@@ -248,18 +252,20 @@ public class Tablero {
           i = i + 7;
         }
 	  }
-	  
-	  i = tabIndex - 1;
-	  int col = (Tablero.transformarColumna(tabIndex)) - 1;
-	  while ((col >= 0) && ((!this.elementos[i].esNegra()))) {     //Illuminar el tablero hacia la izquierda
-	    if (this.elementos[i].esLuz()) {
-          i--;
-        } else {
-          this.elementos[i].setCeldaLuz();
-          this.cantCeldasLuz++;
-          i--;
-        }
-	    col--;
+	  int col = (Tablero.transformarColumna(tabIndex));
+	  if (!(col == 0 || col % 7 == 0)) {
+	    col = col - 1;
+	    i = tabIndex - 1;
+	    while ((col >= 0) && ((!this.elementos[i].esNegra()))) {     //Illuminar el tablero hacia la izquierda
+	      if (this.elementos[i].esLuz()) {
+            i--;
+          } else {
+            this.elementos[i].setCeldaLuz();
+            this.cantCeldasLuz++;
+            i--;
+          }
+	      col--;
+	    }
 	  }
 	  
 	  col = (Tablero.transformarColumna(tabIndex)) + 1;
@@ -305,24 +311,35 @@ public class Tablero {
    * @param tablero
    * @throws InvalidConfigurationException 
    */
-  public LightUpChromosome  setChromosome() throws InvalidConfigurationException {
+  public LightUpChromosome setChromosome() throws InvalidConfigurationException {
     int i = 0;
-    LightUpChromosome  chromosome = (LightUpChromosome) new Chromosome();
+    //Configuration g_config = new DefaultConfiguration();
+    LightUpChromosome gene = new LightUpChromosome();
     for (Celdas c : this.getTablero()) {
-      if (c.esLampara()) { 
-        Gene g = new SetGene();
+      IntegerGene g = new IntegerGene();
+      g.newGene();
+      if (c.esLampara()) {
         g.setAllele(1);
-        chromosome.setGene(i, g);
-        i++;
       } else {
-        Gene g = new SetGene();
         g.setAllele(0);
-        chromosome.setGene(i, g);
-        i++;
-      }	
+      }
+      gene.setEnChromosoma(i, g);
+      i++;
     }
+    LightUpChromosome chromosome = new LightUpChromosome();
+    chromosome.setChromosome(gene);
     return chromosome;
   }
+  
+  public void setMejorTablero(int pos, Integer value) {
+    if (value == 1) {
+      try {
+        this.nuevaLampara(pos);
+      } catch (IllegalArgumentException exe) {
+        
+      }
+    }
+  }    
   
   /**
    * 
