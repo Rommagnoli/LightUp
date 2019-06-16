@@ -15,15 +15,7 @@ import org.jgap.impl.SwappingMutationOperator;
  */
 public class App {
 
-  public static void main (String[] args) throws InvalidConfigurationException {
-    Tablero tab = new Tablero();
-    //System.out.println(tab.toString());         //Printea el tablero base
-    
-    //System.out.println("------------------------");
-    
-    //tab.nuevaLampara(8);                        //Printea el tablero con una lampara hubicada (prueba)
-    //System.out.println(tab.toString());
-
+  private static Configuration iniciarConfiguracion(Tablero tab) throws InvalidConfigurationException {
     Configuration config = new DefaultConfiguration();  //Setea una config por default
     config.setPreservFittestIndividual(true);
     Fitness fitfun = new Fitness(tab);                  //Setea nuestra FitnessFunction
@@ -36,22 +28,40 @@ public class App {
     
     IChromosome sampleChromosome = new Chromosome(config, sampleGene); //Setea el SampleGene creado antes
     config.setSampleChromosome(sampleChromosome);
-    //System.out.println(config.toString());        //Printea la configuracion
+    //System.out.println(config.toString());                //Printea la configuracion
+    return config;
+  }
+  
+  public static void main (String[] args) throws InvalidConfigurationException {
+    Tablero tab = new Tablero();
+    tab.setTableroPorDefecto();
+    System.out.println("Tablero base: ");
+    System.out.println(tab.toString());                     //Printea el tablero base
+    System.out.println("------------------------");
     
-    config.setPopulationSize(1000);                 //Setea el tamaño maximo de poblacion
+    tab.nuevaLampara(5);                                    //Printea el tablero con una lampara hubicada (prueba)
+    System.out.println("Lampara hubicada: ");
+    System.out.println(tab.toString());
+    System.out.println("------------------------");
+    Configuration config = App.iniciarConfiguracion(tab);   //Creacion de una configuracion
+    config.setPopulationSize(5000);                         //Setea el tamaño maximo de poblacion
     Genotype Poblacion;
-    Poblacion = Genotype.randomInitialGenotype(config); //Genera una poblacion inicial en base al SampleChromosome (Creo)
-    Poblacion.evolve();                                 //Inicia la evolucion de la poblacion
-    //System.out.println(Poblacion.toString());         //Printea la Poblacion
+    Poblacion = Genotype.randomInitialGenotype(config);     //Genera una poblacion inicial en base al SampleChromosome (creo)
+    Poblacion.evolve();                                     //Inicia la evolucion de la poblacion
+    //System.out.println(Poblacion.toString());             //Printea la Poblacion
     IChromosome fittest = Poblacion.getFittestChromosome(); //Captura el mejor cromosoma y lo guarda en la variable
     Gene[] chromo = fittest.getGenes();
-    //for (int i = 0; i < 49; i++){                     //Printea el mejor chromosoma
+    
+    //for (int i = 0; i < 49; i++){                         //Printea el mejor cromosoma
     //  System.out.println("Posicion " + i + ": " + chromo[i].toString());
     //}
-    Tablero mejorTablero = new Tablero();
-    for (int i = 0; i < 49; i++) {                      //Setea en un tablero el mejor cromosoma obtenido
-      mejorTablero.setMejorTablero(i,(Integer) chromo[i].getAllele());  
+    
+    //Tablero mejorTablero = new Tablero();
+    for (int i = 0; i < 49; i++) {                          //Setea en un tablero el mejor cromosoma obtenido
+      tab.setMejorTablero(i,(Integer) chromo[i].getAllele());  
     }
-    //System.out.println(mejorTablero.toString());    //Prientea el mejor tablero
+    
+    System.out.println("Mejor Tablero conseguido: ");
+    System.out.println(tab.toString());            //Prientea el mejor tablero
   }
 }

@@ -45,16 +45,22 @@ public class Tablero {
       Celdas celda = new Celdas();
       this.elementos [tabIndex] = celda;
     }
-    elementos [22].setCeldaNegra();
-	elementos [46].setCeldaNegra();		
-	elementos [2].setCeldaNegra(1);
-	elementos [10].setCeldaNegra(1);
-	elementos [28].setCeldaNegra(3);
-	elementos [38].setCeldaNegra(0);
-	elementos [26].setCeldaNegra(2);
-	elementos [20].setCeldaNegra(3);
-  
   }
+  
+  public void setTableroPorDefecto() {
+    this.elementos [22].setCeldaNegra();
+    this.elementos [46].setCeldaNegra();     
+    this.elementos [2].setCeldaNegra(1);
+    this.elementos [10].setCeldaNegra(1);
+    this.elementos [28].setCeldaNegra(3);
+    this.elementos [38].setCeldaNegra(0);
+    this.elementos [26].setCeldaNegra(2);
+    this.elementos [20].setCeldaNegra(3);
+    
+  }
+    /*
+    */
+  
   /**
    * Funcion que retorna la matriz de celdas.
    * @return la matriz que simboliza el tablero.
@@ -71,7 +77,7 @@ public class Tablero {
    */
   private static int transformarColumna(int tabIndex) {
     int col = tabIndex;
-    while (col > 7) {
+    while (col >= 7) {
       col = col - 7;
     }
     return col;
@@ -252,6 +258,7 @@ public class Tablero {
           i = i + 7;
         }
 	  }
+	  
 	  int col = (Tablero.transformarColumna(tabIndex));
 	  if (!(col == 0 || col % 7 == 0)) {
 	    col = col - 1;
@@ -268,17 +275,19 @@ public class Tablero {
 	    }
 	  }
 	  
-	  col = (Tablero.transformarColumna(tabIndex)) + 1;
-	  i = tabIndex + 1;
-	  while ((col < 7) && (!(this.elementos[i].esNegra()))) {      //Illuminar el tablero hacia la derecha
-	    if (this.elementos[i].esLuz()){
-          i++;
-        } else {
-		  this.elementos[i].setCeldaLuz();
-		  this.cantCeldasLuz++;
-		  i++;
-		}
-	    col++;
+	  col = (Tablero.transformarColumna(tabIndex));
+	  if (!(col == 6)) {
+	    i = tabIndex + 1;
+	    while ((col < 6) && (!(this.elementos[i].esNegra()))) {      //Illuminar el tablero hacia la derecha
+	      if (this.elementos[i].esLuz()){
+            i++;
+          } else {
+            this.elementos[i].setCeldaLuz();
+            this.cantCeldasLuz++;
+            i++;
+          }
+	      col++;
+	    }
 	  }
 	}
   }
