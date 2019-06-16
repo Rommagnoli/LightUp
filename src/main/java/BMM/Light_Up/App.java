@@ -17,12 +17,12 @@ public class App {
 
   public static void main (String[] args) throws InvalidConfigurationException {
     Tablero tab = new Tablero();
-    System.out.println(tab.toString());         //Printea el tablero base
+    //System.out.println(tab.toString());         //Printea el tablero base
     
-    System.out.println("------------------------");
+    //System.out.println("------------------------");
     
-    tab.nuevaLampara(8);                        //Printea el tablero con una lampara hubicada (prueba)
-    System.out.println(tab.toString());
+    //tab.nuevaLampara(8);                        //Printea el tablero con una lampara hubicada (prueba)
+    //System.out.println(tab.toString());
 
     Configuration config = new DefaultConfiguration();  //Setea una config por default
     config.setPreservFittestIndividual(true);
