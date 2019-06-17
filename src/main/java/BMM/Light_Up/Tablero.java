@@ -82,6 +82,10 @@ public class Tablero {
     }
     return col;
   }
+  
+  public static int transformarCoord(int fila, int columna) {
+    return ((fila*7) + columna);
+  }
 
   /**
    * Funcion que dice si un tablero no es null.
@@ -124,7 +128,7 @@ public class Tablero {
       throw new IllegalArgumentException("El tablero es nulo");
     }
     
-    if (tabIndex < 0 || tabIndex > 48) {
+    if (tabIndex < 0 || tabIndex >= MAX) {
       throw new IllegalArgumentException("Posiciones invalidas");
     }  
     
@@ -249,7 +253,7 @@ public class Tablero {
 	  }
 	  
 	  i = tabIndex + 7;
-	  while ((i < 49) && (!(this.elementos[i].esNegra()))){         //Illuminar el tablero hacia abajo
+	  while ((i < MAX) && (!(this.elementos[i].esNegra()))){         //Illuminar el tablero hacia abajo
 	    if (this.elementos[i].esLuz()) {
           i = i + 7;
         } else {
@@ -340,6 +344,11 @@ public class Tablero {
     return chromosome;
   }
   
+  /**
+   * Metodo que setea el mejor tablero sin que se detenga por las excepciones.
+   * @param pos donde se quiere instertar el valor.
+   * @param value el valor a insertar.
+   */
   public void setMejorTablero(int pos, Integer value) {
     if (value == 1) {
       try {
@@ -351,7 +360,8 @@ public class Tablero {
   }    
   
   /**
-   * 
+   * Metodo que devuelve en una cadena, el tablero a imprimir.
+   * @return el tablero pasado a cadena para imprimir.
    */
   public String toString() {
     String tab = "";
