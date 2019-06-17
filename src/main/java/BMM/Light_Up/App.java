@@ -4,8 +4,9 @@ import java.util.Scanner;
 import org.jgap.*;
 import org.jgap.impl.DefaultConfiguration;
 import org.jgap.impl.IntegerGene;
+
 /**
- * Hello world!
+ * Clase principal de la aplicacion.
  *
  */
 public class App {
@@ -14,7 +15,7 @@ public class App {
    * Metodo para setear un objeto Configuration por default para un algoritmo genético.
    * @param tab Tablero para setear la Fitness Function.
    * @return Objeto tipo Configuracion ya seteado.
-   * @throws InvalidConfigurationException
+   * @throws InvalidConfigurationException Cuando la configuracion es invalida.
    */
   private static Configuration iniciarConfiguracion(Tablero tab) throws InvalidConfigurationException {
     Configuration config = new DefaultConfiguration();                  //Setea una config por default
@@ -33,6 +34,13 @@ public class App {
     return config;
   }
 
+  /**
+   * Metodo que da comienzo al algoritmo genetico.
+   * @param tab el tablero con el cual iniciar el algortimo.
+   * @param config configuracion para el algoritmo genetico.
+   * @return Tablero con el mejor individuo.
+   * @throws InvalidConfigurationException Cuando se da una configuracion invalida.
+   */
   private static Tablero iniciarAlgoritmoGenetico(Tablero tab, Configuration config) throws InvalidConfigurationException {
     config.setPopulationSize(5000);                         //Setea el tamaño maximo de poblacion
     Genotype Poblacion;
@@ -53,7 +61,9 @@ public class App {
 
   }
   
-  
+  /**
+   * Motodo para imprimira el menu principal.
+   */
   private static void imprimirMenuPrincipal() {
     System.out.println("                   LIGHT UP");
     System.out.println("      Resuelto con un Algoritmo Genético");
@@ -65,7 +75,10 @@ public class App {
     System.out.println("|_______________________________________________|");
   }
   
-  public static void main (String[] args) throws InvalidConfigurationException {
+  /**
+   * Metodo "main" donde se ejecuta la app.
+   */
+  public static void main(String[] args) throws InvalidConfigurationException {
     Scanner scan = new Scanner(System.in);
     int opcion = 0;
     while (opcion != 3) {
@@ -97,18 +110,18 @@ public class App {
             Scanner inScanner = new Scanner(System.in);
             System.out.println("Fila: ");
             int fila = inScanner.nextInt();
-            while(fila < 0 || fila > 7) {
+            while (fila < 0 || fila > 7) {
               System.out.println("Fila fuera de los limites, ingrese una fila válida: ");
               fila = inScanner.nextInt();
             }
             System.out.println("Columna: ");
             int columna = inScanner.nextInt();
-            while(columna < 0 || columna > 7) {
+            while (columna < 0 || columna > 7) {
               System.out.println("Columna fuera de los limites, ingrese una columna válida: ");
               columna = inScanner.nextInt();
             }
             int tabIndex = Tablero.transformarCoord(fila, columna); 
-            System.out.println(fila + ", " + columna + ": " + tabIndex );
+            System.out.println(fila + ", " + columna + ": " + tabIndex);
             try {
               tab.nuevaCeldaNegra(tabIndex);
             } catch (IllegalArgumentException excepcion) {
@@ -116,7 +129,7 @@ public class App {
               capturado = true;
             }
             if (!capturado) {
-              System.out.println("Celda negra ubicada en (" + fila + ", " + columna +")");
+              System.out.println("Celda negra ubicada en (" + fila + ", " + columna + ")");
               System.out.println(tab.toString());
             }
             System.out.println("Ingresar otra celda? (S/N)");
