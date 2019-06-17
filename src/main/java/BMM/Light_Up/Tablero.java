@@ -1,14 +1,8 @@
 package BMM.Light_Up;
 
 import java.util.*;
-import org.jgap.BaseGene;
-import org.jgap.Chromosome;
-import org.jgap.Configuration;
-import org.jgap.Gene;
 import org.jgap.InvalidConfigurationException;
-import org.jgap.impl.DefaultConfiguration;
 import org.jgap.impl.IntegerGene;
-import org.jgap.impl.SetGene;
 
 /**
  * Clase que repersenta el tablero de juego.
