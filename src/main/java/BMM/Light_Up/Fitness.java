@@ -42,17 +42,20 @@ public class Fitness extends FitnessFunction {
                     isCatch = true;
                 }
                 if (!isCatch){
-                    res = res + 1;
+                    res = 0;
                     isCatch = false;
                 }
             }
             posicion++;
         }
-        for(Integer pos : posCeldasNegras){
-            if (tablero.getTablero()[pos].getValorCelda() == tablero.cantLamparasAdy(pos)){
-                res = res + 200;
-            }    
+        ArrayList<Integer> celdasNValor = Tablero.posCeldasNegrasValor(tablero);
+        for (Integer pos : celdasNValor){
+            if (tablero.reglaCantidadLamparasAdy(pos)){
+                res = res + 100;
+            }
         }
+        if (tablero.reglaTableroCompletoLuz())
+            res = res + 200;
         return res;
     }
 

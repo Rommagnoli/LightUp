@@ -388,6 +388,25 @@ public class Tablero {
             }
         }
     }
+    
+    /**
+     * Funcion que dice si en la posicion de una celda negra con valor entan todas las lamparas.
+     * @param posicionCeldaNegra posicion de la celda negra con valor.
+     * @return true si se cumple la condicion de que esten todas las lamparas, false en caso contrario.
+     */
+    public Boolean reglaCantidadLamparasAdy(int posicionCeldaNegra){
+        return (this.getTablero()[posicionCeldaNegra].getValorCelda() == this.cantLamparasAdy(posicionCeldaNegra));
+            
+    }
+    
+    /**
+     * Funcion que dice si un tablero esta completo de luz, depende de la cantidad de celdas negras que tiene.
+     * @return true si el tablero esta completo con luz, false en caso contrario.
+     */
+    public Boolean reglaTableroCompletoLuz(){
+        return (this.cantCeldasLuz + this.cantCeldasNegras == 49);
+    }
+    
 
     /**
      *
