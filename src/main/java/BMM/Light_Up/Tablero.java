@@ -416,14 +416,17 @@ public class Tablero {
      */
     public double evalTablero() {
         double res = 0;
+        double auxiliar = 0;
         ArrayList<Integer> celdasNValor = posCeldasNegrasValor(this);
         for (Integer pos : celdasNValor) {
-            if (this.reglaCantidadLamparasAdy(pos)) {
+            auxiliar = this.elementos[pos].getValorCelda();
+            if (auxiliar == 0)
                 res = res + 100;
-            }
+            else
+                res = res + (auxiliar*100);
         }
-        if (this.reglaTableroCompletoLuz())
-            res = res + 200;
+        //if (this.reglaTableroCompletoLuz())
+            //res = res + 200;
         return res;
     }
 
