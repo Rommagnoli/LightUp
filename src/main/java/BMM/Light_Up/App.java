@@ -59,15 +59,14 @@ public class App { //IntelliJ
     Configuration config = iniciarConfiguracion(tab);
 
     //Setea el tamaño maximo de poblacion
-    config.setPopulationSize(250);
+    config.setPopulationSize(500);
     
-    Genotype Poblacion;
     //Genera una poblacion inicial en base al SampleChromosome (creo)
-    Poblacion = Genotype.randomInitialGenotype(config);     
+     Genotype Poblacion = Genotype.randomInitialGenotype(config);     
     
-    double valorFitActual = 0;
-    IChromosome fittest;
-    while(valorFitActual < MAXFITVALUE - 200) { 
+    int generaciones = 200;
+    Boolean encontrado = false;
+    for (int i = 0; i < generaciones && !encontrado; i++) { 
       //Inicia la evolucion de la poblacion
       Poblacion.evolve();
       
@@ -75,9 +74,12 @@ public class App { //IntelliJ
       //System.out.println(Poblacion.toString());             
       
       //Captura el mejor cromosoma y lo guarda en la variable
-      fittest = Poblacion.getFittestChromosome(); 
+      IChromosome fittest = Poblacion.getFittestChromosome(); 
       Gene[] chromo = fittest.getGenes();
-      valorFitActual = fittest.getFitnessValue();
+      System.out.println(config.getFitnessFunction().getFitnessValue(fittest));
+      if ((config.getFitnessFunction().getFitnessValue(fittest)) >= 1000) {
+        encontrado = true;
+      }
       
       //Printea el mejor cromosoma
       /*
@@ -85,10 +87,10 @@ public class App { //IntelliJ
         System.out.println("Posicion " + i + ": " + chromo[i].toString());
       }
        */
-      Thread.sleep(1000);
+      Thread.sleep(500);
       //Setea en un tablero el mejor cromosoma obtenido
-      for (int i = 0; i < 49; i++) {
-        tab.setMejorTablero(i, (Integer) chromo[i].getAllele());  
+      for (int j = 0; j < 49; j++) {
+        tab.setMejorTablero(j, (Integer) chromo[j].getAllele());  
       }
       System.out.println("Mejor tablero conseguido: " + tab.toString() + "\n");
     }
