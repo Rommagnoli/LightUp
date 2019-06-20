@@ -27,12 +27,8 @@ public class App {
     System.out.println("Tablero base:" + tab.toString() +"\n");
     System.out.println("------------------------\n");
     
-    //Creacion de una configuracion
-    //Configuration config = iniciarConfiguracion(tab);
-    
     //Setea una config por default
     Configuration config = new DefaultConfiguration();
-    //config.setPreservFittestIndividual(true);
     
     //Setea nuestra FitnessFunction
     LightUpFitnessFunction fitfun = new LightUpFitnessFunction(tab);
@@ -79,8 +75,8 @@ public class App {
       for (int j = 0; j < 49; j++) {
         mejorTab.setMejorTablero(j, (Integer) chromo[j].getAllele());  
       }
-      System.out.println("Mejor tablero conseguido: " + mejorTab.toString() + "\n");
-      System.out.println("Puntuacion: " + config.getFitnessFunction().getFitnessValue(fittest));
+      System.out.println("Mejor tablero conseguido: " + mejorTab.toString());
+      System.out.println("Puntuacion: " + config.getFitnessFunction().getFitnessValue(fittest) + "\n");
     }
   }
 }

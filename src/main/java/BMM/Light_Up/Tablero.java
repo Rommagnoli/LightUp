@@ -66,7 +66,6 @@ public class Tablero {
 
     /**
      * Funcion que retorna la matriz de celdas.
-     *
      * @return la matriz que simboliza el tablero.
      */
     public Celdas[] getTablero() {
@@ -76,7 +75,6 @@ public class Tablero {
     /**
      * Funcion que dada la posiscion en un arreglo, devuelve la columna
      * correspondiente de la matriz donde se encontraria.
-     *
      * @param tabIndex es el indice del arreglo
      * @return el indice de la columna a la que hace referencia la posicion
      */
@@ -94,7 +92,6 @@ public class Tablero {
 
     /**
      * Funcion que dice si un tablero no es null.
-     *
      * @return true si es valido, falso si es invalido.
      */
     public boolean tableroValido() {
@@ -103,7 +100,6 @@ public class Tablero {
 
     /**
      * Funcion que retorna la cantidad de celdas con luz.
-     *
      * @return cantidad de celdas con luz.
      */
     public int getCantCeldasLuz() {
@@ -112,7 +108,6 @@ public class Tablero {
 
     /**
      * Funcion que retorna la cantidad de celdas negras.
-     *
      * @return la cantidad de celdas negras del tablero.
      */
     public int getCantCeldasNegras() {
@@ -121,7 +116,6 @@ public class Tablero {
 
     /**
      * Funcion que retorna la cantidad de celdas sin luz del tablero.
-     *
      * @return cantidad de celdas sin luz.
      */
     public int getCantidadSinLuz() {
@@ -130,7 +124,6 @@ public class Tablero {
 
     /**
      * Funcion que setea una celda negra en la matriz si la posicion es valida.
-     *
      * @param tabIndex es el indice de movimiento para el arreglo.
      */
     public void nuevaCeldaNegra(int tabIndex) {
@@ -148,9 +141,7 @@ public class Tablero {
     }
 
     /**
-     * Funcion que setea una celda negra con valor en la matriz si la posicion
-     * es valida.
-     *
+     * Funcion que setea una celda negra con valor en la matriz si la posiciones valida.
      * @param tabIndex es el indice de movimiento para el arreglo.
      * @param valor es el valor que tendra la celda negra.
      */
@@ -171,7 +162,6 @@ public class Tablero {
     /**
      * Funcion que dice si poner una lampara en la posicion es valida teniendo
      * una celda negra con valor adyacente.
-     *
      * @param tabIndex es el indice de movimiento para el arreglo.
      * @return true si la posicion es valida, falso si no lo es.
      */
@@ -211,9 +201,7 @@ public class Tablero {
     }
 
     /**
-     * Funcion que dice si una posicion es valida para poner una lampara en la
-     * matriz.
-     *
+     * Funcion que dice si una posicion es valida para poner una lampara en el arreglo.
      * @param tabIndex es el indice de movimiento para el arreglo.
      * @return true si es valida la posicion, false si es invalida.
      */
@@ -240,9 +228,7 @@ public class Tablero {
     }
 
     /**
-     * Funcion que setea en la matriz una lampara si y solo si la posicion es
-     * valida.
-     *
+     * Funcion que setea en la matriz una lampara si y solo si la posicion es valida.
      * @param tabIndex es el indice de movimiento para el arreglo.
      */
     public void nuevaLampara(int tabIndex) {
@@ -308,9 +294,7 @@ public class Tablero {
     }
 
     /**
-     * Funcion privada que dice la cantidad de lamaparas que tiene adyacente una
-     * celda negra con valor.
-     *
+     * Funcion privada que dice la cantidad de lamaparas que tiene adyacente una celda negra con valor.
      * @param tabIndex representa el indice del arregla.
      * @return cantidad de lamparas adyacentes.
      */
@@ -338,10 +322,8 @@ public class Tablero {
     /**
      * Funcion que dice si en la posicion de una celda negra con valor entan
      * todas las lamparas.
-     *
      * @param posicionCeldaNegra posicion de la celda negra con valor.
-     * @return true si se cumple la condicion de que esten todas las lamparas,
-     * false en caso contrario.
+     * @return true si se cumple la condicion de que esten todas las lamparas, false en caso contrario.
      */
     public Boolean reglaCantidadLamparasAdy(int posicionCeldaNegra) {
         return (this.getTablero()[posicionCeldaNegra].getValorCelda() == this.cantLamparasAdy(posicionCeldaNegra));
@@ -350,9 +332,7 @@ public class Tablero {
     /**
      * Funcion que dice si un tablero esta completo de luz, depende de la
      * cantidad de celdas negras que tiene.
-     *
-     * @return true si el tablero esta completo con luz, false en caso
-     * contrario.
+     * @return true si el tablero esta completo con luz, false en caso contrario.
      */
     public Boolean reglaTableroCompletoLuz() {
         return (this.cantCeldasLuz + this.cantCeldasNegras == 49);
@@ -360,11 +340,9 @@ public class Tablero {
 
     /**
      * Funcion que retorna todas las posiciones de celdas negras con
-     * valor.src/main/java/BMM/Light_Up/Tablero.java
-     *
-     * @param tab representa un Tablero
-     * @return un ArrayList con todas las posiciones de las celdas negras con
      * valor.
+     * @param tab representa un Tablero.
+     * @return un ArrayList con todas las posiciones de las celdas negras con valor.
      */
     public static ArrayList<Integer> posCeldasNegrasValor(Tablero tab) {
         ArrayList<Integer> res = new ArrayList<Integer>();
@@ -378,7 +356,6 @@ public class Tablero {
 
     /**
      * Transforma un tablero a un cromosoma.
-     *
      * @throws InvalidConfigurationException Cuando una configuracion es
      * invalida.
      */
@@ -403,7 +380,6 @@ public class Tablero {
 
     /**
      * Metodo que setea el mejor tablero sin que se detenga por las excepciones.
-     *
      * @param pos donde se quiere instertar el valor.
      * @param value el valor a insertar.
      */
@@ -439,7 +415,6 @@ public class Tablero {
 
     /**
      * Metodo que devuelve en una cadena, el tablero a imprimir.
-     *
      * @return el tablero pasado a cadena para imprimir.
      */
     public String toString() {
