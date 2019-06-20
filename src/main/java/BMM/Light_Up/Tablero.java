@@ -47,29 +47,36 @@ public class Tablero {
     /**
      * Metodo que setea un tablero por defecto.
      */
-    public void setTableroPorDefecto() {
-        this.elementos[2].setCeldaNegra(1);
-        this.elementos[3].setCeldaNegra();
-        this.elementos[9].setCeldaNegra(0);
-        this.elementos[19].setCeldaNegra(0);
-        this.elementos[20].setCeldaNegra(1);
-        this.elementos[21].setCeldaNegra(0);
-        this.elementos[24].setCeldaNegra(1);
-        this.elementos[27].setCeldaNegra(0);
-        this.elementos[28].setCeldaNegra(1);
-        this.elementos[29].setCeldaNegra(0);
-        this.elementos[39].setCeldaNegra();
-        this.elementos[45].setCeldaNegra();
-        this.elementos[46].setCeldaNegra(1);        
-        this.cantCeldasNegras = 13;
+    public void setTableroBase() {
+        this.nuevaCeldaNegra(transformarCoord(1,1), 2);
+        this.nuevaCeldaNegra(transformarCoord(1,3), 1);
+        this.nuevaCeldaNegra(transformarCoord(1,5));
+        this.nuevaCeldaNegra(transformarCoord(2,3));
+        this.nuevaCeldaNegra(transformarCoord(3,1));
+        this.nuevaCeldaNegra(transformarCoord(3,2), 1);
+        this.nuevaCeldaNegra(transformarCoord(3,3));
+        this.nuevaCeldaNegra(transformarCoord(3,4));
+        this.nuevaCeldaNegra(transformarCoord(3,5));
+        this.nuevaCeldaNegra(transformarCoord(4,3), 0);
+        this.nuevaCeldaNegra(transformarCoord(5,1), 1);
+        this.nuevaCeldaNegra(transformarCoord(5,3));
+        this.nuevaCeldaNegra(transformarCoord(5,5));
     }
-
+    
     /**
      * Funcion que retorna la matriz de celdas.
      * @return la matriz que simboliza el tablero.
      */
     public Celdas[] getTablero() {
         return elementos;
+    }
+    
+    public void setTablero(Tablero tab) {
+        for (int i = 0; i < 49; i++) {
+          this.elementos[i] = tab.getTablero()[i];          
+        }
+        this.cantCeldasLuz = tab.cantCeldasLuz;
+        this.cantCeldasNegras = tab.cantCeldasNegras;
     }
 
     /**
@@ -86,6 +93,12 @@ public class Tablero {
         return col;
     }
 
+    public void limpiarTablero() {
+      for (int i = 0; i < this.getTablero().length; i++) {
+        if (!this.elementos[i].esNegra()) this.elementos[i] = new Celdas(); 
+      }
+    }
+    
     public static int transformarCoord(int fila, int columna) {
         return ((fila * 7) + columna);
     }
@@ -146,7 +159,7 @@ public class Tablero {
      * @param valor es el valor que tendra la celda negra.
      */
     public void nuevaCeldaNegra(int tabIndex, Integer valor) {
-        if (this.tableroValido()) {
+        if (!this.tableroValido()) {
             throw new IllegalArgumentException("El tablero es nulo");
         }
         if (tabIndex < 0 || tabIndex > MAX) {
