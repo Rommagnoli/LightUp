@@ -2,6 +2,9 @@ package BMM.Light_Up;
 
 /**
  * Clase que representa las celdas que son contenidas en el tablero.
+ * @author Boaglio Agustin.
+ * @author Menendez Josue.
+ * @author Magnoli Roman.
  */
 public class Celdas {
 

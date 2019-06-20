@@ -6,7 +6,9 @@ import org.jgap.impl.IntegerGene;
 
 /**
  * Clase que repersenta el tablero de juego.
- *
+ * @author Boaglio Agustin.
+ * @author Menendez Josue.
+ * @author Magnoli Roman.
  */
 public class Tablero {
 
@@ -46,14 +48,20 @@ public class Tablero {
      * Metodo que setea un tablero por defecto.
      */
     public void setTableroPorDefecto() {
-        this.elementos[22].setCeldaNegra(2);
-        this.elementos[46].setCeldaNegra();
         this.elementos[2].setCeldaNegra(1);
-        this.elementos[10].setCeldaNegra(1);
-        this.elementos[28].setCeldaNegra(3);
-        this.elementos[38].setCeldaNegra(1);
-        this.elementos[26].setCeldaNegra(2);
-        this.elementos[20].setCeldaNegra(3);
+        this.elementos[3].setCeldaNegra();
+        this.elementos[9].setCeldaNegra(0);
+        this.elementos[19].setCeldaNegra(0);
+        this.elementos[20].setCeldaNegra(1);
+        this.elementos[21].setCeldaNegra(0);
+        this.elementos[24].setCeldaNegra(1);
+        this.elementos[27].setCeldaNegra(0);
+        this.elementos[28].setCeldaNegra(1);
+        this.elementos[29].setCeldaNegra(0);
+        this.elementos[39].setCeldaNegra();
+        this.elementos[45].setCeldaNegra();
+        this.elementos[46].setCeldaNegra(1);        
+        this.cantCeldasNegras = 13;
     }
 
     /**
@@ -213,7 +221,7 @@ public class Tablero {
         if (!(this.tableroValido())) {
             throw new IllegalArgumentException("El tablero es nulo");
         }
-        if (tabIndex < 0 || tabIndex > MAX) {
+        if (tabIndex < 0 || tabIndex >= MAX) {
             throw new IllegalArgumentException("Posiciones invalidas");
         }
         if (this.elementos[tabIndex].esNegra()) {
@@ -337,7 +345,6 @@ public class Tablero {
      */
     public Boolean reglaCantidadLamparasAdy(int posicionCeldaNegra) {
         return (this.getTablero()[posicionCeldaNegra].getValorCelda() == this.cantLamparasAdy(posicionCeldaNegra));
-
     }
 
     /**

@@ -7,7 +7,9 @@ import org.jgap.impl.IntegerGene;
 
 /**
  * Clase principal de la aplicacion.
- *
+ * @author Boaglio Agustin.
+ * @author Menendez Josue.
+ * @author Magnoli Roman.
  */
 public class App { 
   
@@ -15,9 +17,11 @@ public class App {
    * Metodo "main" donde se ejecuta la app.
    * @throws InterruptedException 
    */
-  public static void main(String[] args) throws InvalidConfigurationException, InterruptedException {
+  public static void main(String[] args) throws InvalidConfigurationException {
     Tablero tab = new Tablero();
     tab.setTableroPorDefecto();
+    int celdasBlancas = 49 - tab.getCantCeldasNegras();
+    System.out.println("Celdas negras: " + tab.getCantCeldasNegras());
     System.out.println("        LIGHT UP");
     System.out.println("  (Algoritmo Genetico)\n");
     System.out.println("Tablero base:" + tab.toString() +"\n");
@@ -46,34 +50,36 @@ public class App {
     
 
     //Setea el tamaño maximo de poblacion
-    config.setPopulationSize(1000);
+    config.setPopulationSize(2000);
     
     //Genera una poblacion inicial en base al SampleChromosome (creo)
      Genotype Poblacion = Genotype.randomInitialGenotype(config);     
     
-    int generaciones = 500;
+    int generaciones = 1000;
     Boolean encontrado = false;
-    
-    System.out.println("Maxima cantidad de puntos del tablero: " + tab.evalTablero());
-    
+
     for (int i = 0; i < generaciones && !encontrado; i++) { 
       Poblacion.evolve();
       
       IChromosome fittest = Poblacion.getFittestChromosome(); 
       
-      if ((config.getFitnessFunction().getFitnessValue(fittest)) >= tab.evalTablero()) {
+      if ((config.getFitnessFunction().getFitnessValue(fittest)) >= (49 + celdasBlancas)) {
         encontrado = true;
       }
       
+      try {
+        Thread.sleep(250);
+      } catch (Exception e) { }
       
-      Thread.sleep(500);
-
+      Tablero mejorTab = new Tablero();
+      mejorTab.setTableroPorDefecto();
+      
       //Setea en un tablero el mejor cromosoma obtenido
       Gene[] chromo = fittest.getGenes();
       for (int j = 0; j < 49; j++) {
-        tab.setMejorTablero(j, (Integer) chromo[j].getAllele());  
+        mejorTab.setMejorTablero(j, (Integer) chromo[j].getAllele());  
       }
-      System.out.println("Mejor tablero conseguido: " + tab.toString() + "\n");
+      System.out.println("Mejor tablero conseguido: " + mejorTab.toString() + "\n");
       System.out.println("Puntuacion: " + config.getFitnessFunction().getFitnessValue(fittest));
     }
   }
