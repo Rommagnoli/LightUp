@@ -19,7 +19,8 @@ public class App {
    */
   public static void main(String[] args) throws InvalidConfigurationException {
     Tablero tab = new Tablero();
-    tab.setTableroPorDefecto();
+    tab.setTableroBase();
+    System.out.println("Cantidad celdas negras: " + tab.getCantCeldasNegras());
     int celdasBlancas = 49 - tab.getCantCeldasNegras();
     System.out.println("Celdas negras: " + tab.getCantCeldasNegras());
     System.out.println("        LIGHT UP");
@@ -27,12 +28,8 @@ public class App {
     System.out.println("Tablero base:" + tab.toString() +"\n");
     System.out.println("------------------------\n");
     
-    //Creacion de una configuracion
-    //Configuration config = iniciarConfiguracion(tab);
-    
     //Setea una config por default
     Configuration config = new DefaultConfiguration();
-    //config.setPreservFittestIndividual(true);
     
     //Setea nuestra FitnessFunction
     LightUpFitnessFunction fitfun = new LightUpFitnessFunction(tab);
@@ -55,7 +52,7 @@ public class App {
     //Genera una poblacion inicial en base al SampleChromosome (creo)
      Genotype Poblacion = Genotype.randomInitialGenotype(config);     
     
-    int generaciones = 1000;
+    int generaciones = 100;
     Boolean encontrado = false;
 
     for (int i = 0; i < generaciones && !encontrado; i++) { 
@@ -72,15 +69,16 @@ public class App {
       } catch (Exception e) { }
       
       Tablero mejorTab = new Tablero();
-      mejorTab.setTableroPorDefecto();
+      mejorTab.setTableroBase();
       
       //Setea en un tablero el mejor cromosoma obtenido
       Gene[] chromo = fittest.getGenes();
       for (int j = 0; j < 49; j++) {
         mejorTab.setMejorTablero(j, (Integer) chromo[j].getAllele());  
       }
-      System.out.println("Mejor tablero conseguido: " + mejorTab.toString() + "\n");
-      System.out.println("Puntuacion: " + config.getFitnessFunction().getFitnessValue(fittest));
+      System.out.println("Mejor tablero conseguido: " + mejorTab.toString());
+      System.out.println("Generacion: " + i);
+      System.out.println("Puntuacion: " + config.getFitnessFunction().getFitnessValue(fittest) + "\n");
     }
   }
 }

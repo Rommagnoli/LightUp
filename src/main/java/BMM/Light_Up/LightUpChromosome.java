@@ -13,7 +13,7 @@ import org.jgap.impl.IntegerGene;
 public class LightUpChromosome extends Chromosome{
 	
   /**
-   * Arreglo que representa el cromosoma
+   * Arreglo que representa el cromosoma.
    */
   private Gene[] chromosome;
   

@@ -23,7 +23,8 @@ public class LightUpFitnessFunction extends FitnessFunction {
    * @param t representa el tablero origiinal con las celdas negras.
    */
   public LightUpFitnessFunction(Tablero t) {
-    tablero = t;
+    tablero = new Tablero();
+    tablero.setTablero(t);
   }
 
   /**
@@ -36,7 +37,10 @@ public class LightUpFitnessFunction extends FitnessFunction {
     if (conflictos == 0) {
       Gene[] genActual = individuo.getGenes();
       Tablero aux = new Tablero();
-      aux.setTableroPorDefecto();
+      Tablero limpio = new Tablero(); 
+      limpio.setTablero(tablero);
+      limpio.limpiarTablero();
+      aux.setTablero(limpio);
       for (int j = 0; j < 49; j++) {
         aux.setMejorTablero(j, (Integer) genActual[j].getAllele());  
       }
@@ -65,7 +69,10 @@ public class LightUpFitnessFunction extends FitnessFunction {
     }
     Gene[] genActual = individuo.getGenes();
     Tablero aux = new Tablero();
-    aux.setTableroPorDefecto();
+    Tablero limpio = new Tablero(); 
+    limpio.setTablero(tab);
+    limpio.limpiarTablero();
+    aux.setTablero(limpio);
     for (int j = 0; j < 49; j++) {
       aux.setMejorTablero(j, (Integer) genActual[j].getAllele());  
     }
